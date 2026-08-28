@@ -1,0 +1,38 @@
+#Parte IX
+import random
+import time
+
+def bubbleSort(lista):
+    comparaciones = 0
+    intercambios = 0
+    n = len(lista)
+
+    for i in range(n - 1):
+        intercambio_hecho = False
+        for j in range(n - 1 - i):
+            comparaciones += 1
+            if lista[j] > lista[j + 1]:
+                lista[j], lista[j + 1] = lista[j + 1], lista[j]
+                intercambios += 1
+                intercambio_hecho = True
+        if not intercambio_hecho:
+            break  # si no hubo intercambios, la lista ya está ordenada
+
+    return lista, comparaciones, intercambios
+
+# Caso A, Aleatoria
+listaAleatoria = random.sample(range(1, 10000), 1000)
+
+# Caso B, Ordenada
+listaOrdenada = list(range(1000))
+
+# Caso C, Ordenada inversamente
+listaInvertida = list(range(1000, 0, -1))
+
+for nombre, datos in [("Aleatoria", listaAleatoria), ("Ordenada", listaOrdenada), ("Invertida", listaInvertida)]:
+    copia = datos.copy()
+    inicio = time.perf_counter()
+    resultado, comparaciones, intercambios = bubbleSort(copia)
+    fin = time.perf_counter()
+    tiempo_ms = (fin - inicio) * 1000
+    print(f"{nombre}: tiempo={tiempo_ms:.4f} ms, comparaciones={comparaciones}, intercambios={intercambios}")
