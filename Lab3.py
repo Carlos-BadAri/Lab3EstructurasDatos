@@ -59,7 +59,7 @@ for tam in tamanios:
     """
 
 #Parte IX
-import random
+"""import random
 import time
 
 def bubbleSort(lista):
@@ -96,3 +96,45 @@ for nombre, datos in [("Aleatoria", listaAleatoria), ("Ordenada", listaOrdenada)
     fin = time.perf_counter()
     tiempo_ms = (fin - inicio) * 1000
     print(f"{nombre}: tiempo={tiempo_ms:.4f} ms, comparaciones={comparaciones}, intercambios={intercambios}")
+    """
+
+#Parte X
+import random
+import time
+
+def bubbleSort(lista):
+    comparaciones = 0
+    intercambios = 0
+    n = len(lista)
+    for i in range(n - 1):
+        intercambio_hecho = False
+        for j in range(n - 1 - i):
+            comparaciones += 1
+            if lista[j] > lista[j + 1]:
+                lista[j], lista[j + 1] = lista[j + 1], lista[j]
+                intercambios += 1
+                intercambio_hecho = True
+        if not intercambio_hecho:
+            break
+    return lista, comparaciones, intercambios
+
+n = 100000
+datos = random.sample(range(1, n*10), n)
+
+# Bubble Sort (implementado por el estudiante)
+copia1 = datos.copy()
+inicio = time.perf_counter()
+bubbleSort(copia1)
+fin = time.perf_counter()
+tiempo_bubble = (fin - inicio) * 1000
+print(f"Bubble Sort: {tiempo_bubble:.2f} ms")
+
+# sorted() de Python
+copia2 = datos.copy()
+inicio = time.perf_counter()
+sorted(copia2)
+fin = time.perf_counter()
+tiempo_sorted = (fin - inicio) * 1000
+print(f"sorted(): {tiempo_sorted:.4f} ms")
+
+print(f"\nBubble Sort tardó aproximadamente {tiempo_bubble/tiempo_sorted:.0f} veces más que sorted()")
